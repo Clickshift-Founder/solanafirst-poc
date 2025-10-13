@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { CheckCircle, Lock, Award, TrendingUp, Shield, BookOpen, Zap, Users } from 'lucide-react';
+import React, { useState } from 'react';
+import { CheckCircle, BookOpen, Zap, Users, Shield } from 'lucide-react';
 
-// --- SolanaFirst: common types used in this page ---
+// Types
 type Quiz = {
   q: string;
   options: string[];
@@ -12,8 +12,7 @@ type Quiz = {
 type ModuleItem = {
   id: string;
   title: string;
-  description?: string;
-  icon?: string;
+  icon: string;
   xp: number;
   level: number;
   completed?: boolean;
@@ -34,9 +33,9 @@ type StartProps = {
 };
 
 type FeatureProps = {
-  icon?: React.ReactNode | string;
+  icon: React.ReactNode;
   title: string;
-  description?: string;
+  description: string;
 };
 
 type UseCaseProps = {
@@ -64,15 +63,7 @@ type IntegrationShowcaseProps = {
   setCurrentView: React.Dispatch<React.SetStateAction<string>>;
 };
 
-type IntegrationKey = 'phantom' | 'jupiter' | 'drift';
-
-type IntegrationInfo = {
-  name: string;
-  description: string;
-  code: string;
-};
-
-// Main App Component
+// Main App
 export default function SolanaFirstPOC() {
   const [currentView, setCurrentView] = useState('landing');
   const [userProgress, setUserProgress] = useState<UserProgress>({
@@ -96,7 +87,6 @@ export default function SolanaFirstPOC() {
 function LandingPage({ onStart }: StartProps) {
   return (
     <div className="container mx-auto px-4 py-12">
-      {/* Hero Section */}
       <div className="text-center mb-16">
         <div className="inline-block bg-purple-500/20 rounded-full px-6 py-2 mb-6">
           <span className="text-purple-300 font-semibold">Developer Tooling for Solana</span>
@@ -121,15 +111,8 @@ function LandingPage({ onStart }: StartProps) {
           >
             🚀 Try Interactive Demo
           </button>
-          <button
-            className="bg-white/10 hover:bg-white/20 border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all"
-            onClick={() => alert('GitHub repo coming soon after grant approval!')}
-          >
-            📖 View Documentation
-          </button>
         </div>
 
-        {/* Proof Stats */}
         <div className="grid grid-cols-3 gap-6 max-w-3xl mx-auto mb-16">
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
             <div className="text-4xl font-bold text-purple-200">525+</div>
@@ -149,7 +132,6 @@ function LandingPage({ onStart }: StartProps) {
         </div>
       </div>
 
-      {/* Value Props */}
       <div className="grid md:grid-cols-3 gap-8 mb-16">
         <ValueProp
           icon={<Zap className="w-12 h-12" />}
@@ -168,7 +150,6 @@ function LandingPage({ onStart }: StartProps) {
         />
       </div>
 
-      {/* Use Cases */}
       <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 border border-white/10">
         <h2 className="text-3xl font-bold mb-8 text-center">Who Benefits?</h2>
         <div className="grid md:grid-cols-2 gap-6">
@@ -218,7 +199,6 @@ function UseCase({ title, benefit, description }: UseCaseProps) {
   );
 }
 
-// Demo Section
 function DemoSection({ userProgress, setUserProgress, setCurrentView }: DemoSectionProps) {
   const [activeTab, setActiveTab] = useState('tutorial');
   const [currentModule, setCurrentModule] = useState<ModuleItem | null>(null);
@@ -301,8 +281,7 @@ function DemoSection({ userProgress, setUserProgress, setCurrentView }: DemoSect
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <button
           onClick={() => setCurrentView('landing')}
           className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm"
@@ -314,29 +293,23 @@ function DemoSection({ userProgress, setUserProgress, setCurrentView }: DemoSect
           <button
             onClick={() => setActiveTab('tutorial')}
             className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-              activeTab === 'tutorial'
-                ? 'bg-purple-500 text-white'
-                : 'bg-white/10 text-purple-300 hover:bg-white/20'
+              activeTab === 'tutorial' ? 'bg-purple-500 text-white' : 'bg-white/10 text-purple-300 hover:bg-white/20'
             }`}
           >
-            📚 Learning Path
+            📚 Learning
           </button>
           <button
             onClick={() => setActiveTab('trading')}
             className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-              activeTab === 'trading'
-                ? 'bg-purple-500 text-white'
-                : 'bg-white/10 text-purple-300 hover:bg-white/20'
+              activeTab === 'trading' ? 'bg-purple-500 text-white' : 'bg-white/10 text-purple-300 hover:bg-white/20'
             }`}
           >
-            💹 Paper Trading
+            💹 Trading
           </button>
           <button
             onClick={() => setActiveTab('progress')}
             className={`px-6 py-2 rounded-lg font-semibold transition-all ${
-              activeTab === 'progress'
-                ? 'bg-purple-500 text-white'
-                : 'bg-white/10 text-purple-300 hover:bg-white/20'
+              activeTab === 'progress' ? 'bg-purple-500 text-white' : 'bg-white/10 text-purple-300 hover:bg-white/20'
             }`}
           >
             🏆 Progress
@@ -347,14 +320,12 @@ function DemoSection({ userProgress, setUserProgress, setCurrentView }: DemoSect
           onClick={() => setCurrentView('integration')}
           className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 px-6 py-2 rounded-lg font-semibold"
         >
-          View SDK Integration →
+          View SDK →
         </button>
       </div>
 
-      {/* Content */}
       {activeTab === 'tutorial' && (
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Module List */}
           <div className="space-y-4">
             <h2 className="text-2xl font-bold mb-4">Available Modules</h2>
             {modules.map(module => (
@@ -386,7 +357,6 @@ function DemoSection({ userProgress, setUserProgress, setCurrentView }: DemoSect
             ))}
           </div>
 
-          {/* Module Content */}
           <div className="bg-white/10 rounded-xl p-6 border border-white/20">
             {!currentModule ? (
               <div className="text-center py-12">
@@ -401,28 +371,22 @@ function DemoSection({ userProgress, setUserProgress, setCurrentView }: DemoSect
                   <div className="bg-purple-500/20 border border-purple-400/30 rounded-lg p-4">
                     <p className="font-semibold mb-2">📖 Key Concepts:</p>
                     <ul className="text-sm space-y-2 text-purple-200">
-                      {currentModule.id === 'wallet-security' && (
-                        <>
-                          <li>• Your private key = Your money. Never share it.</li>
-                          <li>• Seed phrases are your backup - write them down!</li>
-                          <li>• "Support" asking for keys = ALWAYS A SCAM</li>
-                          <li>• No "forgot password" in crypto - you're the bank</li>
-                        </>
-                      )}
+                      <li>• Your private key = Your money. Never share it.</li>
+                      <li>• Seed phrases are your backup - write them down!</li>
+                      <li>• "Support" asking for keys = ALWAYS A SCAM</li>
+                      <li>• No "forgot password" in crypto - you're the bank</li>
                     </ul>
                   </div>
 
                   <div className="bg-yellow-500/20 border border-yellow-400/30 rounded-lg p-4">
                     <p className="font-semibold mb-2">⚠️ Real-World Example:</p>
                     <p className="text-sm text-yellow-200">
-                      {currentModule.id === 'wallet-security' &&
-                        "A user receives a DM: 'Phantom Support here! Verify your wallet by entering your seed phrase.' This is a SCAM. Real support NEVER asks for seed phrases. The user who falls for this loses everything."
-                      }
+                      A user receives a DM: 'Phantom Support here! Verify your wallet by entering your seed phrase.' 
+                      This is a SCAM. Real support NEVER asks for seed phrases.
                     </p>
                   </div>
                 </div>
 
-                {/* Quiz */}
                 {currentModule.quiz && currentModule.quiz.length > 0 && (
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold">Quiz (80% to pass):</h3>
@@ -466,23 +430,14 @@ function DemoSection({ userProgress, setUserProgress, setCurrentView }: DemoSect
         </div>
       )}
 
-      {activeTab === 'trading' && (
-        <PaperTradingDemo userProgress={userProgress} setUserProgress={setUserProgress} />
-      )}
-
-      {activeTab === 'progress' && (
-        <ProgressDashboard userProgress={userProgress} />
-      )}
+      {activeTab === 'trading' && <PaperTradingDemo userProgress={userProgress} setUserProgress={setUserProgress} />}
+      {activeTab === 'progress' && <ProgressDashboard userProgress={userProgress} />}
     </div>
   );
 }
 
 function PaperTradingDemo({ userProgress, setUserProgress }: PaperTradingDemoProps) {
-  const [portfolio] = useState({
-    balance: 1000,
-    positions: [],
-    pnl: 0
-  });
+  const portfolio = { balance: 1000, pnl: 0 };
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -498,43 +453,31 @@ function PaperTradingDemo({ userProgress, setUserProgress }: PaperTradingDemoPro
             <p className="text-sm text-blue-300">Total Trades</p>
             <p className="text-3xl font-bold">{userProgress.tradesExecuted}</p>
           </div>
-          <div className={`rounded-lg p-6 ${portfolio.pnl >= 0 ? 'bg-green-500/20' : 'bg-red-500/20'}`}>
+          <div className="bg-green-500/20 rounded-lg p-6">
             <p className="text-sm text-green-300">Total P&L</p>
             <p className="text-3xl font-bold">${portfolio.pnl.toFixed(2)}</p>
           </div>
         </div>
 
-        <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-6">
+        <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-6 mb-6">
           <p className="font-semibold mb-2">💡 How It Works:</p>
           <ul className="text-sm space-y-2 text-blue-200">
             <li>• Practice trading with $1,000 virtual money</li>
             <li>• Use REAL token prices from Jupiter</li>
             <li>• No risk - learn by doing!</li>
-            <li>• Trades are recorded on-chain for verification</li>
-            <li>• Complete at least 5 profitable trades to level up</li>
+            <li>• Trades recorded on-chain for verification</li>
           </ul>
         </div>
 
         <button
           onClick={() => {
-            setUserProgress({
-              ...userProgress,
-              tradesExecuted: userProgress.tradesExecuted + 1
-            });
-            alert('🎉 Simulated trade executed! (In production, this would use real Jupiter prices)');
+            setUserProgress({...userProgress, tradesExecuted: userProgress.tradesExecuted + 1});
+            alert('🎉 Trade executed! In production: real Jupiter prices');
           }}
-          className="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white py-3 rounded-lg font-bold"
+          className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white py-3 rounded-lg font-bold"
         >
           Execute Sample Trade
         </button>
-      </div>
-
-      <div className="bg-yellow-500/20 border border-yellow-400/30 rounded-lg p-6">
-        <p className="font-semibold mb-2">⚠️ Remember:</p>
-        <p className="text-sm text-yellow-200">
-          This is practice money. Once you complete all modules and demonstrate consistent profitability, 
-          you'll graduate to mainnet trading with real money. Take your time and learn!
-        </p>
       </div>
     </div>
   );
@@ -546,16 +489,13 @@ function ProgressDashboard({ userProgress }: ProgressDashboardProps) {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Level Card */}
       <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-8 shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-sm text-purple-200">Current Level</p>
             <h2 className="text-5xl font-bold">Level {userProgress.level}</h2>
           </div>
-          <div className="text-6xl">
-            {userProgress.level >= 5 ? '🎓' : '⭐'}
-          </div>
+          <div className="text-6xl">{userProgress.level >= 5 ? '🎓' : '⭐'}</div>
         </div>
 
         <div className="mb-2">
@@ -564,18 +504,12 @@ function ProgressDashboard({ userProgress }: ProgressDashboardProps) {
             <span>{xpToNextLevel} XP</span>
           </div>
           <div className="w-full bg-white/20 rounded-full h-3">
-            <div 
-              className="bg-white h-3 rounded-full transition-all"
-              style={{ width: `${Math.min(xpProgress, 100)}%` }}
-            />
+            <div className="bg-white h-3 rounded-full transition-all" style={{ width: `${Math.min(xpProgress, 100)}%` }} />
           </div>
         </div>
-        <p className="text-sm text-purple-200">
-          {xpToNextLevel - userProgress.xp} XP to Level {userProgress.level + 1}
-        </p>
+        <p className="text-sm text-purple-200">{xpToNextLevel - userProgress.xp} XP to Level {userProgress.level + 1}</p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid md:grid-cols-3 gap-6">
         <div className="bg-white/10 rounded-xl p-6 border border-white/20">
           <p className="text-sm text-purple-300">Completed Modules</p>
@@ -591,7 +525,6 @@ function ProgressDashboard({ userProgress }: ProgressDashboardProps) {
         </div>
       </div>
 
-      {/* Badges */}
       {userProgress.badges.length > 0 && (
         <div className="bg-white/10 rounded-xl p-6 border border-white/20">
           <h3 className="text-xl font-bold mb-4">🏆 Your Badges (NFTs)</h3>
@@ -609,148 +542,103 @@ function ProgressDashboard({ userProgress }: ProgressDashboardProps) {
   );
 }
 
-// Integration Showcase
 function IntegrationShowcase({ setCurrentView }: IntegrationShowcaseProps) {
-  const [activeIntegration, setActiveIntegration] = useState<IntegrationKey>('phantom');
+  const [activeTab, setActiveTab] = useState(0);
 
-  const integrations: Record<IntegrationKey, IntegrationInfo> = {
-    phantom: {
+  const examples = [
+    {
       name: 'Phantom Wallet',
-      description: 'Educate users during wallet creation',
-      code: `// Example: How Phantom would integrate SolanaFirst
-import { SolanaFirstButton } from '@solanafirst/sdk';
-
+      desc: 'Educate users during wallet creation',
+      code: `// Phantom Wallet Integration Example
 function PhantomOnboarding() {
   return (
     <div>
       <h2>Welcome to Phantom</h2>
-      <p>First time with Solana? Start safely:</p>
-      
-      <SolanaFirstButton
-        apiKey="phantom_api_key"
-        onComplete={(user) => {
-          createWallet();
-          showWelcomeBonus();
-        }}
-        theme="dark"
+      <p>First time with Solana?</p>
+      {/* SDK Button Component */}
+      <OnboardingButton 
+        onComplete={createWallet}
       />
     </div>
   );
 }`
     },
-    jupiter: {
+    {
       name: 'Jupiter DEX',
-      description: 'Require education before first swap',
-      code: `// Example: How Jupiter would verify education
-import { checkEducation } from '@solanafirst/sdk';
-
+      desc: 'Verify education before first swap',
+      code: `// Jupiter Integration Example
 function JupiterSwap() {
-  const [isEducated, setIsEducated] = useState(false);
-
-  useEffect(() => {
-    checkEducation(wallet.publicKey, API_KEY)
-      .then(setIsEducated);
-  }, [wallet]);
-
+  const isEducated = checkUserEducation();
+  
   if (!isEducated) {
-    return (
-      <Alert>
-        ⚠️ First swap? Practice safely first:
-        <SolanaFirstButton />
-      </Alert>
-    );
+    return <EducationRequired />;
   }
-
+  
   return <SwapInterface />;
 }`
     },
-    drift: {
+    {
       name: 'Drift Protocol',
-      description: 'Gate features by education level on-chain',
-      code: `// Example: Smart contract gating (Rust)
-use solanafirst::EducationRecord;
-
-pub fn open_leverage_position(
-    ctx: Context<OpenPosition>
+      desc: 'Gate features by education level',
+      code: `// Smart Contract Gating (Rust)
+pub fn open_position(
+  ctx: Context<Trade>
 ) -> Result<()> {
-    // Verify user education on-chain
-    let education = get_education_account(
-        &ctx.accounts.user
-    );
-    
-    require!(
-        education.level >= 3,
-        ErrorCode::InsufficientEducation
-    );
-    
-    // Proceed with position...
-    Ok(())
+  let edu = get_education(user);
+  require!(edu.level >= 3);
+  Ok(())
 }`
     }
-  };
+  ];
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <button
-        onClick={() => setCurrentView('demo')}
-        className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm mb-8"
-      >
-        ← Back to Demo
+      <button onClick={() => setCurrentView('demo')} className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg text-sm mb-8">
+        ← Back
       </button>
 
       <h1 className="text-4xl font-bold mb-4 text-center">SDK Integration Examples</h1>
-      <p className="text-xl text-purple-300 text-center mb-12 max-w-2xl mx-auto">
-        See how easy it is to integrate SolanaFirst into your dApp
-      </p>
+      <p className="text-xl text-purple-300 text-center mb-12">Easy integration for any Solana dApp</p>
 
-      {/* Integration Tabs */}
       <div className="flex gap-4 justify-center mb-8">
-        {(Object.keys(integrations) as IntegrationKey[]).map(key => (
+        {examples.map((ex, i) => (
           <button
-            key={key}
-            onClick={() => setActiveIntegration(key)}
+            key={i}
+            onClick={() => setActiveTab(i)}
             className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              activeIntegration === key
-                ? 'bg-purple-500 text-white'
-                : 'bg-white/10 text-purple-300 hover:bg-white/20'
+              activeTab === i ? 'bg-purple-500 text-white' : 'bg-white/10 text-purple-300 hover:bg-white/20'
             }`}
           >
-            {integrations[key].name}
+            {ex.name}
           </button>
         ))}
       </div>
 
-      {/* Code Example */}
       <div className="max-w-4xl mx-auto">
         <div className="bg-white/10 rounded-xl p-8 border border-white/20 mb-6">
-          <h2 className="text-2xl font-bold mb-2">{integrations[activeIntegration].name}</h2>
-          <p className="text-purple-300 mb-6">{integrations[activeIntegration].description}</p>
-
+          <h2 className="text-2xl font-bold mb-2">{examples[activeTab].name}</h2>
+          <p className="text-purple-300 mb-6">{examples[activeTab].desc}</p>
           <div className="bg-gray-900 rounded-lg p-6 overflow-x-auto">
-            <pre className="text-sm text-green-400 font-mono">
-              {integrations[activeIntegration].code}
-            </pre>
+            <pre className="text-sm text-green-400 font-mono">{examples[activeTab].code}</pre>
           </div>
         </div>
 
-        {/* Benefits */}
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-green-500/20 border border-green-400/30 rounded-lg p-6">
             <h3 className="font-bold mb-3">✅ Benefits:</h3>
             <ul className="text-sm space-y-2 text-green-200">
               <li>• Integration in under 30 minutes</li>
               <li>• 60% reduction in support tickets</li>
-              <li>• Higher user quality and retention</li>
-              <li>• On-chain verification (trustless)</li>
+              <li>• Higher user quality</li>
+              <li>• On-chain verification</li>
             </ul>
           </div>
-
           <div className="bg-blue-500/20 border border-blue-400/30 rounded-lg p-6">
             <h3 className="font-bold mb-3">📦 What You Get:</h3>
             <ul className="text-sm space-y-2 text-blue-200">
-              <li>• NPM package (@solanafirst/sdk)</li>
-              <li>• React hooks and components</li>
-              <li>• TypeScript definitions</li>
+              <li>• NPM package</li>
+              <li>• React hooks</li>
+              <li>• TypeScript support</li>
               <li>• Full documentation</li>
             </ul>
           </div>
