@@ -1,12 +1,13 @@
 // src/app/layout.tsx
+import "../styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SolanaFirst | ClickShift",
-  description: "Proof of Concept for SolanaFirst integration",
+  title: "SolanaFirst - Universal Onboarding Infrastructure | ClickShift",
+  description: "Open-source SDK that enables any wallet, DEX, or protocol to safely onboard users before they lose money",
   icons: {
     icon: "/favicon.ico", // ✅ points to /public/favicon.ico
     shortcut: "/favicon.ico",
