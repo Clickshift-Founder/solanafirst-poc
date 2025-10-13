@@ -1,0 +1,4 @@
+# robots.txt for solanafirst.clickshift.io
+User-agent: *
+Allow: /
+
