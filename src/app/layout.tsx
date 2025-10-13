@@ -7,6 +7,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "SolanaFirst | ClickShift",
   description: "Proof of Concept for SolanaFirst integration",
+  icons: {
+    icon: "/favicon.ico", // ✅ points to /public/favicon.ico
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
