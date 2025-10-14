@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  // Remove any "experimental" section — not needed anymore
+  experimental: {
+    appDir: true,
+  },
+  // ✅ Tell Next.js to treat /src as the root
+  srcDir: 'src',
 };
 
 export default nextConfig;
